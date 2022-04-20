@@ -6,3 +6,4 @@ datetime
 pandas_datareader
 sklearn
 tensorflow
+streamlit
