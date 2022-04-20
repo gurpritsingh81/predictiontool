@@ -1,0 +1,12 @@
+matplotlib
+yfinance
+numpy
+pandas
+datetime
+pandas_datareader
+sklearn
+sklearn.preprocessing
+tensorflow
+tensorflow.keras.layers
+tensorflow.keras.models
+fbprophet
