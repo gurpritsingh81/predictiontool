@@ -7,9 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1DDat3EZ8ootrz9hL0_aYc_DeuxHTZs9Y
 """
 
-pip install yfinance
-
-pip install streamlit
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,7 +18,7 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.layers import Dense,Dropout,LSTM
 from tensorflow.keras.models import Sequential
 from fbprophet import Prophet
-
+import streamlite as sl
 # Setting inicial
 
 crypro_currency=input("Enter the Currency :")
