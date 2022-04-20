@@ -9,7 +9,7 @@ Original file is located at
 # Libraries Used
 """
 
-pip install yfinance
+
 
 # Commented out IPython magic to ensure Python compatibility.
 import numpy as np
