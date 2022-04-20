@@ -24,9 +24,10 @@ from tensorflow.keras.layers import Dense,Dropout,LSTM
 from tensorflow.keras.models import Sequential
 
 """# Setting inicial"""
-
-crypro_currency=input("Enter the Currency :")
-against_currency=input("Which Currecy Do you want to use for reference : ")
+user_crypto = st.text_input("Enter the Currency :")
+user_against = st.text_input("Which Currecy Do you want to use for reference :")
+crypro_currency=input(user_crypto)
+against_currency=input(user_against)
 
 start=dt.datetime(2016,1,1)
 end=dt.datetime.now()
