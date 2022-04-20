@@ -6,4 +6,3 @@ datetime
 pandas_datareader
 sklearn
 tensorflow
-fbprophet
