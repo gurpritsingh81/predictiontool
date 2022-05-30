@@ -137,7 +137,7 @@ print("The mean absolute percentage error: ",result)
 
 """# Plot"""
 
-c=  plt.plot(actual_price,color='black',label='Actuatl Prices')
+c= plt.plot(actual_price,color='black',label='Actuatl Prices')
     plt.plot(prediction_prices,color='green',label='Prediction Prices')
     plt.title(f'{crypro_currency} Price Prediction')
     plt.xlabel('Date')
