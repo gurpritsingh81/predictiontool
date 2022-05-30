@@ -44,7 +44,7 @@ data.head()
 
 """# How The Data Looks"""
 
-print(data.head())
+st.print(data.head())
 
 """# sclaring the data from 0 to 1 """
 
@@ -143,7 +143,7 @@ plt.title(f'{crypro_currency} Price Prediction')
 plt.xlabel('Date')
 plt.ylabel('Price')
 plt.legend(loc='upper left')
-plt.show()
+st.pyplot()
 
 """# Predict Next Day"""
 
