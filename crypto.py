@@ -136,14 +136,21 @@ result = mape(actual,predicted)
 print("The mean absolute percentage error: ",result)
 
 """# Plot"""
-fig, ax = plt.subplots()
-            ax.plot(actual_price,color='black',label='Actuatl Prices')
-            ax.plot(prediction_prices,color='green',label='Prediction Prices')
-            ax.title(f'{crypro_currency} Price Prediction')
-            ax.xlabel('Date')
-            ax.ylabel('Price')
-            ax.legend(loc='upper left')
-st.pyplot(fig)
+def fig_barh(Date, Price, title='Date over Price'):
+    fig = plt.figure()
+
+    plt.subplots()
+    plt.plot(actual_price,color='black',label='Actuatl Prices')
+    plt.plot(prediction_prices,color='green',label='Prediction Prices')
+    plt.title(f'{crypro_currency} Price Prediction')
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    plt.legend(loc='upper left')
+    
+    return(fig)
+
+st.write(fig)
+
 
 """# Predict Next Day"""
 
