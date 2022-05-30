@@ -37,6 +37,7 @@ y=crypro_currency + "-" + against_currency
 x=str(y)
 
 type(x)
+st.write(y)
 
 data = yf.download(x,start,end)
 
@@ -46,6 +47,7 @@ data.head()
 
 a=print(data.head())
 st.write(a)
+
 """# sclaring the data from 0 to 1 """
 
 scaler=MinMaxScaler(feature_range=(0,1))
@@ -53,10 +55,12 @@ scaled_data=scaler.fit_transform(data['Close'].values.reshape(-1,1))
 
 b=print(scaled_data)
 st.write(b)
+
 """# For prediction we will be using 60 days in the past """
 
 prediction_days=60
 st.print(prediction_days)
+
 x_train,y_train=[],[]
 
 for x in range(prediction_days,len(scaled_data)):
@@ -114,10 +118,6 @@ x_test=np.reshape(x_test,(x_test.shape[0],x_test.shape[1],1))
 prediction_prices=model.predict(x_test)
 prediction_prices=scaler.inverse_transform(prediction_prices)
 
-"""#  Root Mean Squared error(RMSE) and Mean Absolute Percentage Error(MAPE) 
-
-"""
-
 actual=actual_price
 predicted=prediction_prices
 
@@ -136,22 +136,21 @@ result = mape(actual,predicted)
 print("The mean absolute percentage error: ",result)
 
 """# Plot"""
-
-c= plt.plot(actual_price,color='black',label='Actuatl Prices')
-    plt.plot(prediction_prices,color='green',label='Prediction Prices')
-    plt.title(f'{crypro_currency} Price Prediction')
-    plt.xlabel('Date')
-    plt.ylabel('Price')
-    plt.legend(loc='upper left')
-
-st.write(c)
+fig, ax = plt.subplots()
+        ax.plot(actual_price,color='black',label='Actuatl Prices')
+        ax.plot(prediction_prices,color='green',label='Prediction Prices')
+        ax.title(f'{crypro_currency} Price Prediction')
+        ax.xlabel('Date')
+        ax.ylabel('Price')
+        ax.legend(loc='upper left')
+st.pyplot(fig)
 
 """# Predict Next Day"""
 
 real_data=[modle_inputs[len(modle_inputs)+1- prediction_days:len(modle_inputs)+1,0]]
 real_data=np.array(real_data)
 real_data=np.reshape(real_data,(real_data.shape[0],real_data.shape[1],1))
-
+st.write(real_data)
 prediction=model.predict(real_data)
 prediction=scaler.inverse_transform(prediction)
-st.print(prediction)
+st.write(prediction)
