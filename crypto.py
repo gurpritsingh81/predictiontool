@@ -137,12 +137,12 @@ print("The mean absolute percentage error: ",result)
 
 """# Plot"""
 fig, ax = plt.subplots()
-        ax.plot(actual_price,color='black',label='Actuatl Prices')
-        ax.plot(prediction_prices,color='green',label='Prediction Prices')
-        ax.title(f'{crypro_currency} Price Prediction')
-        ax.xlabel('Date')
-        ax.ylabel('Price')
-        ax.legend(loc='upper left')
+            ax.plot(actual_price,color='black',label='Actuatl Prices')
+            ax.plot(prediction_prices,color='green',label='Prediction Prices')
+            ax.title(f'{crypro_currency} Price Prediction')
+            ax.xlabel('Date')
+            ax.ylabel('Price')
+            ax.legend(loc='upper left')
 st.pyplot(fig)
 
 """# Predict Next Day"""
