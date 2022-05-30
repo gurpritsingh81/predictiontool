@@ -51,12 +51,12 @@ st.print(data.head())
 scaler=MinMaxScaler(feature_range=(0,1))
 scaled_data=scaler.fit_transform(data['Close'].values.reshape(-1,1))
 
-print(scaled_data)
+st.print(scaled_data)
 
 """# For prediction we will be using 60 days in the past """
 
 prediction_days=60
-
+st.print(prediction_days)
 x_train,y_train=[],[]
 
 for x in range(prediction_days,len(scaled_data)):
@@ -67,7 +67,7 @@ x_train,y_train=np.array(x_train),np.array(y_train)
 
 x_train = np.reshape(x_train,(x_train.shape[0],x_train.shape[1], 1))
 
-"""# Create the Neural Network for Prediction"""
+
 
 model = Sequential()
 
@@ -153,4 +153,4 @@ real_data=np.reshape(real_data,(real_data.shape[0],real_data.shape[1],1))
 
 prediction=model.predict(real_data)
 prediction=scaler.inverse_transform(prediction)
-print(prediction)
+st.print(prediction)
