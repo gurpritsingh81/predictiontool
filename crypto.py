@@ -44,15 +44,15 @@ data.head()
 
 """# How The Data Looks"""
 
-st.print(data.head())
-
+a=print(data.head())
+st.write(a)
 """# sclaring the data from 0 to 1 """
 
 scaler=MinMaxScaler(feature_range=(0,1))
 scaled_data=scaler.fit_transform(data['Close'].values.reshape(-1,1))
 
-st.print(scaled_data)
-
+b=print(scaled_data)
+st.write(b)
 """# For prediction we will be using 60 days in the past """
 
 prediction_days=60
@@ -137,13 +137,14 @@ print("The mean absolute percentage error: ",result)
 
 """# Plot"""
 
-plt.plot(actual_price,color='black',label='Actuatl Prices')
-plt.plot(prediction_prices,color='green',label='Prediction Prices')
-plt.title(f'{crypro_currency} Price Prediction')
-plt.xlabel('Date')
-plt.ylabel('Price')
-plt.legend(loc='upper left')
-st.pyplot()
+c=  plt.plot(actual_price,color='black',label='Actuatl Prices')
+    plt.plot(prediction_prices,color='green',label='Prediction Prices')
+    plt.title(f'{crypro_currency} Price Prediction')
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    plt.legend(loc='upper left')
+
+st.write(c)
 
 """# Predict Next Day"""
 
