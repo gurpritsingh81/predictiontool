@@ -18,6 +18,7 @@ import pandas_datareader as web
 import yfinance as yf
 import streamlit as st
 # %matplotlib inline
+from tensorflow import keras
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.layers import Dense,Dropout,LSTM
 from tensorflow.keras.models import Sequential
