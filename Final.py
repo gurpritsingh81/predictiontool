@@ -63,7 +63,7 @@ if user_crypto:
         scaled_data=scaler.fit_transform(data['Close'].values.reshape(-1,1))
 
         print(scaled_data)
-        st.write(scaled_data.tail())
+        st.write(scaled_data)
 
         """# For prediction we will be using 2 years in the past """
 
