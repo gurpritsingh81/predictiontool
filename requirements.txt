@@ -7,3 +7,5 @@ pandas_datareader
 sklearn
 tensorflow
 streamlit
+Pystan==2.19.1.1
+Fbprophet
