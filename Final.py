@@ -244,7 +244,7 @@ if user_crypto:
         data
         st.write(data)
 
-        
+        str3=past1+'-'+now1
         # Visualize the data and the strategy to buy and sell the stock
         fig, ax = plt.subplots()
         #ax.figure(figsize=(12.6,4.6))
@@ -255,7 +255,7 @@ if user_crypto:
         ax.scatter(data.index, data['Buy_signal_Price'], label='Buy',marker='^',color='green')
         ax.scatter(data.index, data['Sell_signal_Price'], label='Sell',marker='v',color='red')
         ax.set_title(currency_name.upper()+' Closeing price History Buy and Sell Signals')
-        ax.xaxis.set_label_text(past1+' - '+now1)
+        ax.xaxis.set_label_text(str3)
         ax.yaxis.set_label_text('Closeing Price in '+against_currency.upper())
         ax.legend(loc='upper left')
         ax.show()
