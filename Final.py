@@ -255,7 +255,7 @@ if user_crypto:
         ax.scatter(data.index, data['Buy_signal_Price'], label='Buy',marker='^',color='green')
         ax.scatter(data.index, data['Sell_signal_Price'], label='Sell',marker='v',color='red')
         ax.set_title(currency_name.upper()+' Closeing price History Buy and Sell Signals')
-        ax.xaxis.set_label_text(str(past1)+' - '+str(now1))
+        ax.xaxis.set_label_text(past1+' - '+now1)
         ax.yaxis.set_label_text('Closeing Price in '+against_currency.upper())
         ax.legend(loc='upper left')
         ax.show()
