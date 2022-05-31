@@ -16,6 +16,7 @@ import pandas as pd
 import datetime as dt
 import pandas_datareader as web
 import yfinance as yf
+import streamlit as 
 # %matplotlib inline
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.layers import Dense,Dropout,LSTM
