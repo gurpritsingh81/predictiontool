@@ -150,7 +150,7 @@ if user_crypto:
 
             return(fig)
 
-        st.write(fig)
+        st.pyplot(fig)
 
 
         """# Predict Next Day"""
