@@ -47,9 +47,7 @@ if user_crypto:
         data.head()
 
         """# How The Data Looks"""
-
-        a=print(data.head())
-        st.write(a)
+        st.dataframe(data.head())
 
         """# sclaring the data from 0 to 1 """
 
