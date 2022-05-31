@@ -129,12 +129,12 @@ if user_crypto:
          # ax.set_title('Two Trig Functions') ax.legend(['sin','cos']) ax.xaxis.set_label_text('Angle ΘΘ') ax.yaxis.set_label_text('Sine and Cosine')
             
           # plt.subplots()
-         ax.plot(actual_price,color='black',label='Actuatl Prices')
-         ax.plot(prediction_prices,color='green',label='Prediction Prices')
-         ax.set_title(f'{crypro_currency} Price Prediction')
-         ax.xaxis.set_label_text('Date')
-         ax.yaxis.set_label_text('Price')
-         ax.legend(loc='upper left')
+        ax.plot(actual_price,color='black',label='Actuatl Prices')
+        ax.plot(prediction_prices,color='green',label='Prediction Prices')
+        ax.set_title(f'{crypro_currency} Price Prediction')
+        ax.xaxis.set_label_text('Date')
+        ax.yaxis.set_label_text('Price')
+        ax.legend(loc='upper left')
 
            
         
