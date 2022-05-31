@@ -25,244 +25,238 @@ from tensorflow.keras.models import Sequential
 
 """# Setting inicial"""
 
-crypro_currency=input("Enter the Currency :")
-against_currency=input("Which Currecy Do you want to use for reference : ")
+user_crypto=st.selectbox("Enter the Currency :", ('BTC', 'ETH','ADA','MANA','XRP','BAT','DOGE','ZIL','DENT','WIN','SHIB','BTTC'))
+#user_crypto = st.text_input("Enter the Currency :")
+user_against=st.selectbox("Which Currecy Do you want to use for reference :", ('INR', 'USD','CAD','EUR','AUD'))
+#user_against = st.text_input("Which Currecy Do you want to use for reference :")
+crypro_currency=user_crypto
+against_currency=user_against
 
 start_date=dt.datetime(2016,1,1)
 end_date=dt.datetime.now()
 
 
+if user_crypto:
+    
+    if user_against:
+        y=crypro_currency + "-" + against_currency
+        x=str(y)
+        currency_name=crypro_currency
 
-y=crypro_currency + "-" + against_currency
-x=str(y)
-currency_name=crypro_currency
+        type(x)
 
-type(x)
+        data = yf.download(x,start_date,end_date)
+        data1=data
 
-data = yf.download(x,start_date,end_date)
-data1=data
+        data.to_csv (r'New_Products.csv', index=None)
 
-data.to_csv (r'New_Products.csv', index=None)
+        data.head()
 
-data.head()
+        """# How The Data Looks"""
 
-"""# How The Data Looks"""
+        print(data.head())
+        st.dataframe(data.tail())
 
-print(data.head())
+        """# sclaring the data from 0 to 1 """
 
-"""# sclaring the data from 0 to 1 """
+        scaler=MinMaxScaler(feature_range=(0,1))
+        scaled_data=scaler.fit_transform(data['Close'].values.reshape(-1,1))
 
-scaler=MinMaxScaler(feature_range=(0,1))
-scaled_data=scaler.fit_transform(data['Close'].values.reshape(-1,1))
+        print(scaled_data)
+        st.dataframe(scaled_data.tail())
 
-print(scaled_data)
+        """# For prediction we will be using 2 years in the past """
 
-"""# For prediction we will be using 60 days in the past """
+        prediction_days=60
+        future_day=30
 
-prediction_days=60
-future_day=30
+        x_train,y_train=[],[]
 
-x_train,y_train=[],[]
+        for x in range(prediction_days,len(scaled_data)-future_day):
+            x_train.append(scaled_data[x-prediction_days:x,0])
+            y_train.append(scaled_data[x+future_day,0])
 
-for x in range(prediction_days,len(scaled_data)-future_day):
-    x_train.append(scaled_data[x-prediction_days:x,0])
-    y_train.append(scaled_data[x+future_day,0])
+        x_train,y_train=np.array(x_train),np.array(y_train)
 
-x_train,y_train=np.array(x_train),np.array(y_train)
+        x_train = np.reshape(x_train,(x_train.shape[0],x_train.shape[1], 1))
 
-x_train = np.reshape(x_train,(x_train.shape[0],x_train.shape[1], 1))
+        """# Create the Neural Network for Prediction"""
 
-"""# Create the Neural Network for Prediction"""
+        model = Sequential()
 
-model = Sequential()
+        model.add(LSTM(units=50,return_sequences=True,input_shape=(x_train.shape[1],1)))
+        model.add(Dropout(0.2))
+        model.add(LSTM(units=50,return_sequences=True))
+        model.add(Dropout(0.2))
+        model.add(LSTM(units=50))
+        model.add(Dropout(0.2))
+        model.add(Dense(units=1))
+        model.compile(optimizer='adam',loss='mean_squared_error')
+        my_bar = st.progress(0)
+        
+        class CustomCallback(keras.callbacks.Callback):
+            def on_epoch_end(self, epoch, logs=None):
+                my_bar.progress(epoch*4) 
+               
+         # keys = list(logs.keys())print("End epoch {} of training; got log keys: {}".format(epoch, keys))
+        
+        model.fit(x_train,y_train,epochs=25, batch_size=32,callbacks=[CustomCallback()])
+        
+        """#  Testing the Model"""
 
-model.add(LSTM(units=50,return_sequences=True,input_shape=(x_train.shape[1],1)))
-model.add(Dropout(0.2))
-model.add(LSTM(units=50,return_sequences=True))
-model.add(Dropout(0.2))
-model.add(LSTM(units=50))
-model.add(Dropout(0.2))
-model.add(Dense(units=1))
-model.compile(optimizer='adam',loss='mean_squared_error')
+        import pandas as pd
 
-model.fit(x_train,y_train,epochs=25, batch_size=32)
+        start = dt.datetime(2020,1,1)
+        end =dt.datetime(2022,4,21)
 
-"""#  Testing the Model"""
+        # stock = input("Enter stock symbol or ticket symbol (Exp. General Electric is 'GE'): ")
 
-import pandas as pd
+        test_data = yf.download(y,start,end)
 
-start = dt.datetime(2020,1,1)
-end =dt.datetime(2022,4,21)
+        actual_price=test_data['Close'].values
 
-# stock = input("Enter stock symbol or ticket symbol (Exp. General Electric is 'GE'): ")
+        total_dataset=pd.concat((data['Close'],test_data['Close']),axis=0)
 
-test_data = yf.download(y,start,end)
+        modle_inputs= total_dataset[len(total_dataset)-len(test_data)-prediction_days:].values
 
-actual_price=test_data['Close'].values
+        modle_inputs=modle_inputs.reshape(-1,1)
+        modle_inputs=scaler.fit_transform(modle_inputs)
 
-total_dataset=pd.concat((data['Close'],test_data['Close']),axis=0)
+        x_test=[]
 
-modle_inputs= total_dataset[len(total_dataset)-len(test_data)-prediction_days:].values
+        for x in range(prediction_days,len(modle_inputs)):
+            x_test.append(modle_inputs[x-prediction_days:x,0])
 
-modle_inputs=modle_inputs.reshape(-1,1)
-modle_inputs=scaler.fit_transform(modle_inputs)
+        x_test=np.array(x_test)
+        x_test=np.reshape(x_test,(x_test.shape[0],x_test.shape[1],1))
 
-x_test=[]
+        prediction_prices=model.predict(x_test)
+        prediction_prices=scaler.inverse_transform(prediction_prices)
 
-for x in range(prediction_days,len(modle_inputs)):
-    x_test.append(modle_inputs[x-prediction_days:x,0])
+        """# Plot"""
 
-x_test=np.array(x_test)
-x_test=np.reshape(x_test,(x_test.shape[0],x_test.shape[1],1))
+        fig, ax = plt.subplots()
+          # ax.plot(line_1, color = 'green', label = 'Line 1')
+         # ax.plot(line_2, color = 'red', label = 'Line 2')
+         # ax.set_title('Two Trig Functions') ax.legend(['sin','cos']) ax.xaxis.set_label_text('Angle ΘΘ') ax.yaxis.set_label_text('Sine and Cosine')
+            
+          # plt.subplots()
+        ax.plot(actual_price,color='red',label='Actuatl Prices')
+        ax.plot(prediction_prices,color='green',label='Prediction Prices')
+        ax.set_title(f'{crypro_currency} Price Prediction')
+        ax.xaxis.set_label_text('Date')
+        ax.yaxis.set_label_text('Price')
+        ax.legend(loc='upper left')
+        
+        st.pyplot(fig)
 
-prediction_prices=model.predict(x_test)
-prediction_prices=scaler.inverse_transform(prediction_prices)
+        """# Predict Next Day"""
 
-"""# Plot"""
+        real_data=[modle_inputs[len(modle_inputs)- prediction_days:len(modle_inputs)]]
+        real_data=np.array(real_data)
+        real_data=np.reshape(real_data,(real_data.shape[0],real_data.shape[1],1))
 
-plt.plot(actual_price,color='black',label='Actuatl Prices')
-plt.plot(prediction_prices,color='green',label='Prediction Prices')
-plt.title(f'{crypro_currency} Price Prediction')
-plt.xlabel('Date')
-plt.ylabel('Price')
-plt.legend(loc='upper left')
-plt.show()
+        prediction=model.predict(real_data)
+        prediction=scaler.inverse_transform(prediction)
+        print(prediction)
+        st.write(prediction)
 
-"""# Predict Next Day"""
+        """When To buy and when to sell"""
 
-real_data=[modle_inputs[len(modle_inputs)- prediction_days:len(modle_inputs)]]
-real_data=np.array(real_data)
-real_data=np.reshape(real_data,(real_data.shape[0],real_data.shape[1],1))
+        import pandas
+        import math
+        import pandas_datareader as web
+        import numpy as np
+        import pandas as pd
+        from sklearn.preprocessing import MinMaxScaler
+        from keras.models import Sequential
+        from keras.layers import Dense, LSTM
+        import matplotlib.pyplot as plt
+        plt.style.use('fivethirtyeight')
 
-prediction=model.predict(real_data)
-prediction=scaler.inverse_transform(prediction)
-print(prediction)
+        pip install dask[dataframe] --upgrade
 
-"""When To buy and when to sell"""
+        # Importing dask dataframe
+        import os
+        import datetime
+        import dask
+        import dask.dataframe as dd
 
-import pandas
-import math
-import pandas_datareader as web
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-from keras.models import Sequential
-from keras.layers import Dense, LSTM
-import matplotlib.pyplot as plt
-plt.style.use('fivethirtyeight')
+        ## Get the stock quote
+        start_time = datetime.datetime.now()
+        df = yf.download(y,start,end)
+        #time_elapsed = datetime.datetime.now() - start_time
+        #print('Time elapsed (hh:mm:ss:ms) {}'.format(time_elapsed))
+        df.head()
 
-pip install dask[dataframe] --upgrade
+        df_10 = pd.DataFrame()
+        df_10['Close'] = df['Close'].rolling(window=10).mean()
+        df_20 = pd.DataFrame()
+        df_20['Close'] = df['Close'].rolling(window=20).mean()
+        df_30 = pd.DataFrame()
+        df_30['Close'] = df['Close'].rolling(window=30).mean()
+        df_40 = pd.DataFrame()
+        df_40['Close'] = df['Close'].rolling(window=40).mean()
 
-# Importing dask dataframe
-import os
-import datetime
-import dask
-import dask.dataframe as dd
+        data = pd.DataFrame()
+        data[str(x)] = df['Close']
+        data['df_10'] = df_10['Close']
+        data['df_20'] = df_20['Close']
+        data['df_30'] = df_30['Close']
+        data['df_40'] = df_40['Close']
+        data
+        st.write(data)
 
-## Get the stock quote
-start_time = datetime.datetime.now()
-df = yf.download(y,start,end)
-#time_elapsed = datetime.datetime.now() - start_time
-#print('Time elapsed (hh:mm:ss:ms) {}'.format(time_elapsed))
-df.head()
+        def buy_sell(data):
+          signalPriceBuy = []
+          signalPriceSell = []
+          flag = -1
 
-df_10 = pd.DataFrame()
-df_10['Close'] = df['Close'].rolling(window=10).mean()
-df_20 = pd.DataFrame()
-df_20['Close'] = df['Close'].rolling(window=20).mean()
-df_30 = pd.DataFrame()
-df_30['Close'] = df['Close'].rolling(window=30).mean()
-df_40 = pd.DataFrame()
-df_40['Close'] = df['Close'].rolling(window=40).mean()
+          for i in range(len(data)):
+            if data['df_20'][i] > data['df_10'][i]:
+              if flag != 1:
+                signalPriceBuy.append(data[str(x)][i])
+                signalPriceSell.append(np.nan)
+                flag = 1
+              else:
+                signalPriceBuy.append(np.nan)
+                signalPriceSell.append(np.nan)
+            elif data['df_20'][i] < data['df_10'][i]:
+              if flag != 0:
+                signalPriceBuy.append(np.nan)
+                signalPriceSell.append(data[str(x)][i])
+                flag=0
+              else:
+                signalPriceBuy.append(np.nan)
+                signalPriceSell.append(np.nan)
+            else:
+                signalPriceBuy.append(np.nan)
+                signalPriceSell.append(np.nan)
 
-data = pd.DataFrame()
-data[str(x)] = df['Close']
-data['df_10'] = df_10['Close']
-data['df_20'] = df_20['Close']
-data['df_30'] = df_30['Close']
-data['df_40'] = df_40['Close']
-data
+          return (signalPriceBuy, signalPriceSell)
 
-def buy_sell(data):
-  signalPriceBuy = []
-  signalPriceSell = []
-  flag = -1
+        # Store the buy and sell data into a variable
+        buy_sell = buy_sell(data)
+        data['Buy_signal_Price'] = buy_sell[0]
+        data['Sell_signal_Price'] = buy_sell[1]
 
-  for i in range(len(data)):
-    if data['df_20'][i] > data['df_10'][i]:
-      if flag != 1:
-        signalPriceBuy.append(data[str(x)][i])
-        signalPriceSell.append(np.nan)
-        flag = 1
-      else:
-        signalPriceBuy.append(np.nan)
-        signalPriceSell.append(np.nan)
-    elif data['df_20'][i] < data['df_10'][i]:
-      if flag != 0:
-        signalPriceBuy.append(np.nan)
-        signalPriceSell.append(data[str(x)][i])
-        flag=0
-      else:
-        signalPriceBuy.append(np.nan)
-        signalPriceSell.append(np.nan)
-    else:
-        signalPriceBuy.append(np.nan)
-        signalPriceSell.append(np.nan)
- 
-  return (signalPriceBuy, signalPriceSell)
+        #Show the data
+        data
+        st.write(data)
 
-# Store the buy and sell data into a variable
-buy_sell = buy_sell(data)
-data['Buy_signal_Price'] = buy_sell[0]
-data['Sell_signal_Price'] = buy_sell[1]
-
-#Show the data
-data
-
-from datetime import datetime
-now = datetime.now()
-now1 = now.strftime("%d/%m/%Y")
-
-past=dt.datetime(2016,1,1)
-past1=past.strftime("%d/%m/%Y")
-
-from fbprophet import Prophet
-
-start=dt.datetime(2016,1,1)
-end=dt.datetime.now()
-
-model=Prophet(interval_width=0.95, daily_seasonality=True)
-df=data1.reset_index()
-df
-df[['ds','y']]=df[['Date','Adj Close']]
-model.fit(df)
-
-future = model.make_future_dataframe(periods=1500,freq='D')
-forecast = model.predict(future)
-forecast.tail()
-
-forecast=model.predict(future)
-
-forecast.head()
-
-model.plot(forecast)
-
-model.plot_components(forecast)
-
-from fbprophet.diagnostics import cross_validation
-df_cv = cross_validation(model, initial='1000 days', period='1000 days', horizon = '500 days')
-df_cv.head()
-
-# Visualize the data and the strategy to buy and sell the stock
-plt.figure(figsize=(12.6,4.6))
-plt.plot(data[str(x)][0:500], label=str(currency_name), alpha=0.35)
-plt.plot(data['df_10'][0:500], label='LSTM', alpha=.35)
-plt.plot(data['df_20'][0:500], label='FbProphet',alpha=0.35)
-plt.plot(data['df_30'][0:500], label='Deep AR',alpha=0.35)
-plt.scatter(data.index, data['Buy_signal_Price'], label='Buy',marker='^',color='green')
-plt.scatter(data.index, data['Sell_signal_Price'], label='Sell',marker='v',color='red')
-plt.title(currency_name.upper()+' Closeing price History Buy and Sell Signals')
-plt.xlabel(str(past1)+' - '+str(now1))
-plt.ylabel('Closeing Price in '+against_currency.upper())
-plt.legend(loc='upper left')
-plt.show()
+        
+        # Visualize the data and the strategy to buy and sell the stock
+         fig, ax = plt.subplots()
+        ax.figure(figsize=(12.6,4.6))
+        ax.plot(data[str(x)][0:500], label=str(currency_name), alpha=0.35)
+        ax.plot(data['df_10'][0:500], label='LSTM', alpha=.35)
+        ax.plot(data['df_20'][0:500], label='FbProphet',alpha=0.35)
+        ax.plot(data['df_30'][0:500], label='Deep AR',alpha=0.35)
+        ax.scatter(data.index, data['Buy_signal_Price'], label='Buy',marker='^',color='green')
+        ax.scatter(data.index, data['Sell_signal_Price'], label='Sell',marker='v',color='red')
+        ax.set_title(currency_name.upper()+' Closeing price History Buy and Sell Signals')
+        ax.xaxis.set_label_text(str(past1)+' - '+str(now1))
+        ax.yaxis.set_label_text('Closeing Price in '+against_currency.upper())
+        ax.legend(loc='upper left')
+        ax.show()
+        st.pyplot(fig)
