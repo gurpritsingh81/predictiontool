@@ -244,7 +244,14 @@ if user_crypto:
         data
         st.write(data)
 
-        str3=past1+'-'+now1
+        from datetime import datetime
+        now = datetime.now()
+        now1 = now.strftime("%d/%m/%Y")
+
+        past=dt.datetime(2016,1,1)
+        past1=past.strftime("%d/%m/%Y")
+
+        
         # Visualize the data and the strategy to buy and sell the stock
         fig, ax = plt.subplots()
         #ax.figure(figsize=(12.6,4.6))
