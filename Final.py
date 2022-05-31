@@ -254,7 +254,7 @@ if user_crypto:
 
         
         # Visualize the data and the strategy to buy and sell the stock
-        fig, ax = plt.subplots()
+        fig2, ax = plt.subplots()
         #ax.figure(figsize=(12.6,4.6))
         ax.plot(data[str(x)][0:500], label=str(currency_name), alpha=0.35)
         ax.plot(data['df_10'][0:500], label='LSTM', alpha=.35)
@@ -266,5 +266,4 @@ if user_crypto:
         ax.xaxis.set_label_text(str3)
         ax.yaxis.set_label_text('Closeing Price in '+against_currency.upper())
         ax.legend(loc='upper left')
-        ax.show()
-        st.pyplot(fig)
+        st.pyplot(fig2)
