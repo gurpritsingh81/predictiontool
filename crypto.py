@@ -60,7 +60,7 @@ if user_crypto:
         """# For prediction we will be using 60 days in the past """
 
         prediction_days=60
-        st.print(prediction_days)
+        st.write(prediction_days)
 
         x_train,y_train=[],[]
 
