@@ -250,6 +250,7 @@ if user_crypto:
 
         past=dt.datetime(2016,1,1)
         past1=past.strftime("%d/%m/%Y")
+        str3=past1+'-'+now1
 
         
         # Visualize the data and the strategy to buy and sell the stock
