@@ -57,13 +57,13 @@ if user_crypto:
         print(data.head())
         st.dataframe(data.tail())
 
-        """# sclaring the data from 0 to 1 """
+        """# Scaling the data from 0 to 1 """
 
         scaler=MinMaxScaler(feature_range=(0,1))
         scaled_data=scaler.fit_transform(data['Close'].values.reshape(-1,1))
 
         print(scaled_data)
-   
+        st.write(scaled_data.tail())
 
         """# For prediction we will be using 2 years in the past """
 
@@ -253,7 +253,7 @@ if user_crypto:
         str3=past1+'-'+now1
 
         
-        # Visualize the data and the strategy to buy and sell the stock
+        "Visualize the data and the strategy to buy and sell the stock"
         fig2, ax = plt.subplots()
         #ax.figure(figsize=(12.6,4.6))
         ax.plot(data[str(x)][0:500], label=str(currency_name), alpha=0.35)
