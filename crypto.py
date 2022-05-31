@@ -123,19 +123,21 @@ if user_crypto:
         predicted=prediction_prices
 
         """# Plot"""
-        def fig_barh(Date, Price, title='Date over Price'):
-            fig = plt.figure()
+         fig, ax = plt.subplots()
+    `    # ax.plot(line_1, color = 'green', label = 'Line 1')
+         # ax.plot(line_2, color = 'red', label = 'Line 2')
+         # ax.set_title('Two Trig Functions') ax.legend(['sin','cos']) ax.xaxis.set_label_text('Angle ΘΘ') ax.yaxis.set_label_text('Sine and Cosine')
+            
+          # plt.subplots()
+         ax.plot(actual_price,color='black',label='Actuatl Prices')
+         ax.plot(prediction_prices,color='green',label='Prediction Prices')
+         ax.set_title(f'{crypro_currency} Price Prediction')
+         ax.xaxis.set_label_text('Date')
+         ax.yaxis.set_label_text('Price')
+         ax.legend(loc='upper left')
 
-            plt.subplots()
-            plt.plot(actual_price,color='black',label='Actuatl Prices')
-            plt.plot(prediction_prices,color='green',label='Prediction Prices')
-            plt.title(f'{crypro_currency} Price Prediction')
-            plt.xlabel('Date')
-            plt.ylabel('Price')
-            plt.legend(loc='upper left')
-
-            return(fig)
-
+           
+        
         st.pyplot(fig)
 
 
