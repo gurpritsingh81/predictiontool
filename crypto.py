@@ -21,6 +21,7 @@ import yfinance as yf
 import streamlit as st
 # %matplotlib inline
 from sklearn.preprocessing import MinMaxScaler
+from tensorflow import keras
 from tensorflow.keras.layers import Dense,Dropout,LSTM
 from tensorflow.keras.models import Sequential
 
@@ -93,7 +94,7 @@ if user_crypto:
                
          # keys = list(logs.keys())print("End epoch {} of training; got log keys: {}".format(epoch, keys))
         
-        model.fit(x_train,y_train,epochs=25, batch_size=32)
+        model.fit(x_train,y_train,epochs=25, batch_size=32,callbacks=[CustomCallback()])
         
         
 
