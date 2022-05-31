@@ -123,8 +123,8 @@ if user_crypto:
         predicted=prediction_prices
 
         """# Plot"""
-         fig, ax = plt.subplots()
-    `    # ax.plot(line_1, color = 'green', label = 'Line 1')
+        fig, ax = plt.subplots()
+          # ax.plot(line_1, color = 'green', label = 'Line 1')
          # ax.plot(line_2, color = 'red', label = 'Line 2')
          # ax.set_title('Two Trig Functions') ax.legend(['sin','cos']) ax.xaxis.set_label_text('Angle ΘΘ') ax.yaxis.set_label_text('Sine and Cosine')
             
