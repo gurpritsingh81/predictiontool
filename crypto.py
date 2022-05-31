@@ -27,7 +27,7 @@ from tensorflow.keras.models import Sequential
 
 """# Setting inicial"""
 user_crypto = st.text_input("Enter the Currency :")
-user_against=st.selectbox( ... 'Which Currecy Do you want to use for reference :', ... ('INR', 'USD'))
+user_against=st.selectbox("Which Currecy Do you want to use for reference :", ('INR', 'USD'))
 #user_against = st.text_input("Which Currecy Do you want to use for reference :")
 crypro_currency=user_crypto
 against_currency=user_against
