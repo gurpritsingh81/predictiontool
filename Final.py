@@ -172,7 +172,7 @@ if user_crypto:
         import matplotlib.pyplot as plt
         plt.style.use('fivethirtyeight')
 
-        pip install dask[dataframe] --upgrade
+    
 
         # Importing dask dataframe
         import os
