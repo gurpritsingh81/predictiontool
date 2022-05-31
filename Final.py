@@ -247,7 +247,7 @@ if user_crypto:
         
         # Visualize the data and the strategy to buy and sell the stock
         fig, ax = plt.subplots()
-        ax.figure(figsize=(12.6,4.6))
+        #ax.figure(figsize=(12.6,4.6))
         ax.plot(data[str(x)][0:500], label=str(currency_name), alpha=0.35)
         ax.plot(data['df_10'][0:500], label='LSTM', alpha=.35)
         ax.plot(data['df_20'][0:500], label='FbProphet',alpha=0.35)
