@@ -84,10 +84,20 @@ if user_crypto:
         model.add(Dropout(0.2))
         model.add(Dense(units=1))
         model.compile(optimizer='adam',loss='mean_squared_error')
-
+        
+        my_bar = st.progress(0)
+        
+        class CustomCallback(keras.callbacks.Callback):
+            def on_epoch_end(self, epoch, logs=None):
+                my_bar.progress(epochs) 
+               
+         # keys = list(logs.keys())print("End epoch {} of training; got log keys: {}".format(epoch, keys))
+        
         model.fit(x_train,y_train,epochs=25, batch_size=32)
+        
+        
 
-        """#  Testing the Model"""
+        # """#  Testing the Model"""
 
         import pandas as pd
 
@@ -129,7 +139,7 @@ if user_crypto:
          # ax.set_title('Two Trig Functions') ax.legend(['sin','cos']) ax.xaxis.set_label_text('Angle ΘΘ') ax.yaxis.set_label_text('Sine and Cosine')
             
           # plt.subplots()
-        ax.plot(actual_price,color='black',label='Actuatl Prices')
+        ax.plot(actual_price,color='red',label='Actuatl Prices')
         ax.plot(prediction_prices,color='green',label='Prediction Prices')
         ax.set_title(f'{crypro_currency} Price Prediction')
         ax.xaxis.set_label_text('Date')
