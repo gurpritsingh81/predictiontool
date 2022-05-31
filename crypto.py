@@ -122,20 +122,6 @@ if user_crypto:
         actual=actual_price
         predicted=prediction_prices
 
-        from sklearn.metrics import mean_squared_error
-        import math
-
-        mse = sklearn.metrics.mean_squared_error(actual, predicted)
-
-        rmse = math.sqrt(mse)
-        print(rmse)
-
-        def mape(actual,pred):
-            return np.mean(np.abs((actual - pred) / actual)) * 100
-
-        result = mape(actual,predicted)
-        print("The mean absolute percentage error: ",result)
-
         """# Plot"""
         def fig_barh(Date, Price, title='Date over Price'):
             fig = plt.figure()
