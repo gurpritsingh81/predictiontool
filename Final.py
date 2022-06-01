@@ -57,9 +57,13 @@ if user_crypto:
 
         print(data.head())
         st.dataframe(data.tail())
-        option = st.selectbox(
-            'This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like ')
-
+        
+        with st.expander("See explanation"):
+     st.write("""
+         The chart above shows some numbers I picked for you.
+         I rolled actual dice for these, so they're *guaranteed* to
+         be random""")
+    
         """# Scaling the data from 0 to 1 """
 
         scaler=MinMaxScaler(feature_range=(0,1))
