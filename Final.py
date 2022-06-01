@@ -173,10 +173,8 @@ if user_crypto:
         
         st.pyplot(fig)
         
-        chart_data = pd.DataFrame(
-            np.actual_price,
-            columns=['a', 'b', 'c'])
-        s.line_chart(chart_data)
+        linedata = pd.DataFrame([actual_price,prediction_prices]).T.rename(columns={0:'actual_price', 1:'prediction_prices'})
+        st.line_chart(linedata)
        
         
         with st.expander("See explanation"):
