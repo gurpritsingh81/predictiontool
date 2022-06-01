@@ -60,8 +60,8 @@ if user_crypto:
         
         with st.expander("See explanation"):
              st.write("""
-                1) Here you can See how the data looks and also whenver the app runs you can see the date on which the data is processed.
-                2) User can also see the Measures that are recorder like Open, High, Low, Close ,Adj Close(Adjusted Close) and Volume.
+                1) Here, you can see how the data looks, and also, whenever the app runs, you can see the date on which the data is processed.
+                2) User can also see the recorded measures like Open, High, Low, Close, Adj Close(Adjusted Close), and Volume.
                 """)
     
         """# Scaling the data from 0 to 1 """
@@ -71,6 +71,12 @@ if user_crypto:
 
         print(scaled_data)
         st.write(scaled_data)
+        with st.expander("See explanation"):
+             st.write("""
+                1) Here, the data is called so that it we=ill become easy for the Neural network to process the data, and therefore it can easily use ML algorithms.
+                2) User can also see all the variables from the beginning of the time to the latest.
+                3) This is just for the user's reference that the process is working and the data visualization is also taking place.  
+                """)
 
         """For prediction we will be using 2 years in the past """
 
@@ -88,6 +94,11 @@ if user_crypto:
         x_train = np.reshape(x_train,(x_train.shape[0],x_train.shape[1], 1))
 
         """ Create the Neural Network for Prediction"""
+         with st.expander("See explanation"):
+             st.write("""
+                1) Please wait as the data is being processed.
+                2) You can see the progress bar for the reference.  
+                """)
 
         model = Sequential()
 
@@ -110,6 +121,10 @@ if user_crypto:
         model.fit(x_train,y_train,epochs=25, batch_size=32,callbacks=[CustomCallback()])
         
         """#  Testing the Model"""
+        with st.expander("See explanation"):
+             st.write("""
+                1) Please wait as the Model is being processed 
+                """)
 
         import pandas as pd
 
@@ -156,6 +171,13 @@ if user_crypto:
         ax.legend(loc='upper left')
         
         st.pyplot(fig)
+        with st.expander("See explanation"):
+             st.write("""
+                1) This Image depicts how the actual prices and predictions work.
+                2) As the Green Line represents the future predictions, there is a gap between both the lines.
+                3) The initial objective is to forecast the prices one week prior.
+                4) Since the Cryptocurrency is a very volatile market therefore, we can expect drastic changes in the actual prices, and at those points of times the tool becomes ineffective
+                """)
 
         """# Predict Next Day"""
 
@@ -261,7 +283,7 @@ if user_crypto:
         str3=past1+'-'+now1
 
         
-        """# Visualize the data and the strategy to buy and sell the stock"""
+        """# Visualize the data and the strategy to buy and sell the Currency"""
         fig2, ax = plt.subplots()
         #ax.figure(figsize=(12.6,4.6))
         ax.plot(data[str(x)][0:500], label=str(currency_name), alpha=0.35)
