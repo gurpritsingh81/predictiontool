@@ -65,7 +65,7 @@ if user_crypto:
         print(scaled_data)
         st.write(scaled_data)
 
-        """# For prediction we will be using 2 years in the past """
+        """For prediction we will be using 2 years in the past """
 
         prediction_days=60
         future_day=30
@@ -80,7 +80,7 @@ if user_crypto:
 
         x_train = np.reshape(x_train,(x_train.shape[0],x_train.shape[1], 1))
 
-        """# Create the Neural Network for Prediction"""
+        """ Create the Neural Network for Prediction"""
 
         model = Sequential()
 
@@ -161,7 +161,8 @@ if user_crypto:
         print(prediction)
         st.write(prediction)
 
-        """When To buy and when to sell"""
+        """# When To buy and when to sell"""
+        
 
         import pandas
         import math
@@ -253,7 +254,7 @@ if user_crypto:
         str3=past1+'-'+now1
 
         
-        "Visualize the data and the strategy to buy and sell the stock"
+        """# Visualize the data and the strategy to buy and sell the stock"""
         fig2, ax = plt.subplots()
         #ax.figure(figsize=(12.6,4.6))
         ax.plot(data[str(x)][0:500], label=str(currency_name), alpha=0.35)
