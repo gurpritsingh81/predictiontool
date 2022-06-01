@@ -59,10 +59,10 @@ if user_crypto:
         st.dataframe(data.tail())
         
         with st.expander("See explanation"):
-     st.write("""
-         The chart above shows some numbers I picked for you.
-         I rolled actual dice for these, so they're *guaranteed* to
-         be random""")
+             st.write("""
+                The chart above shows some numbers I picked for you.
+                I rolled actual dice for these, so they're *guaranteed* to
+                be random""")
     
         """# Scaling the data from 0 to 1 """
 
