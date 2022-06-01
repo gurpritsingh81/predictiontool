@@ -174,7 +174,7 @@ if user_crypto:
         ax.legend(loc='upper left')
         
         st.pyplot(fig)
-        df1=pd.DataFrame({'Actual':actual_price,'Predicted':prediction_prices})
+        df1=pd.DataFrame({'Actual':actual_price,'Predicted':np.ravel(prediction_prices)})
         st.line_chart(df1)
        
         
