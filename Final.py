@@ -114,7 +114,7 @@ if user_crypto:
         
         class CustomCallback(keras.callbacks.Callback):
             def on_epoch_end(self, epoch, logs=None):
-                my_bar.progress(epoch*4.125) 
+                my_bar.progress(epoch*4) 
                
          # keys = list(logs.keys())print("End epoch {} of training; got log keys: {}".format(epoch, keys))
         
