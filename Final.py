@@ -53,7 +53,7 @@ if user_crypto:
 
         data.head()
 
-        """# How The Data Looks"""
+        """# Data Representation """
 
         print(data.head())
         st.dataframe(data.tail(n=10))
@@ -64,7 +64,7 @@ if user_crypto:
                 2) User can also see the recorded measures like Open, High, Low, Close, Adj Close(Adjusted Close), and Volume.
                 """)
     
-        """# Scaling the data from 0 to 1 """
+        """# Scaling the Data"""
 
         scaler=MinMaxScaler(feature_range=(0,1))
         scaled_data=scaler.fit_transform(data['Close'].values.reshape(-1,1))
@@ -119,13 +119,14 @@ if user_crypto:
          # keys = list(logs.keys())print("End epoch {} of training; got log keys: {}".format(epoch, keys))
         
         model.fit(x_train,y_train,epochs=25, batch_size=32,callbacks=[CustomCallback()])
-        
+        st.success('Model Develpmet Sucessfull !')
         """#  Testing the Model"""
         with st.expander("See explanation"):
              st.write("""
                 1) Please wait as the Model is being processed 
                 """)
-
+        
+        st.snow()
         import pandas as pd
 
         start = dt.datetime(2020,1,1)
@@ -297,3 +298,4 @@ if user_crypto:
         ax.yaxis.set_label_text('Closeing Price in '+against_currency.upper())
         ax.legend(loc='upper left')
         st.pyplot(fig2)
+        st.balloons()
