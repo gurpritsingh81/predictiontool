@@ -94,7 +94,7 @@ if user_crypto:
         x_train = np.reshape(x_train,(x_train.shape[0],x_train.shape[1], 1))
 
         """ Create the Neural Network for Prediction"""
-         with st.expander("See explanation"):
+        with st.expander("See explanation"):
              st.write("""
                 1) Please wait as the data is being processed.
                 2) You can see the progress bar for the reference.  
