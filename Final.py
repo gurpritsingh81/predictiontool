@@ -172,12 +172,9 @@ if user_crypto:
         ax.legend(loc='upper left')
         
         st.pyplot(fig)
-        
+        st.plotly_chart(fig)
        
-        crss_tab=pd.crosstab(actual_price,prediction_prices)
-        print(crss_tab)
-        fig3=ax.line(crss_tab)
-        st.write(fig3)
+        
         
        
         
