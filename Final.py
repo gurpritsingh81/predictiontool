@@ -56,13 +56,13 @@ if user_crypto:
         """# How The Data Looks"""
 
         print(data.head())
-        st.dataframe(data.tail())
+        st.dataframe(data.tail(n=10))
         
         with st.expander("See explanation"):
              st.write("""
-                The chart above shows some numbers I picked for you.
-                I rolled actual dice for these, so they're *guaranteed* to
-                be random""")
+                1) Here you can See how the data looks and also whenver the app runs you can see the date on which the data is processed.
+                2) User can also see the Measures that are recorder like Open, High, Low, Close ,Adj Close(Adjusted Close) and Volume.
+                """)
     
         """# Scaling the data from 0 to 1 """
 
