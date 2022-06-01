@@ -172,7 +172,7 @@ if user_crypto:
         ax.legend(loc='upper left')
         
         st.pyplot(fig)
-        st.plotly_chart(fig)
+        st.line_chart(fig)
        
         
         
