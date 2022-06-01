@@ -26,8 +26,8 @@ from tensorflow.keras.models import Sequential
 """# Setting inicial"""
 add_selectbox = st.sidebar.selectbox(
     user_crypto=st.selectbox("Enter the Currency :", ('BTC', 'ETH','ADA','MANA','XRP','BAT','DOGE','ZIL','DENT','WIN','SHIB','BTTC')
-                            )
-with st.sidebar:
+
+
     user_against=st.selectbox("Which Currecy Do you want to use for reference :", ('INR', 'USD','CAD','EUR','AUD'))
     #user_against = st.text_input("Which Currecy Do you want to use for reference :")
     crypro_currency=user_crypto
