@@ -24,19 +24,20 @@ from tensorflow.keras.layers import Dense,Dropout,LSTM
 from tensorflow.keras.models import Sequential
 
 """# Setting inicial"""
+with st.sidebar:
+    user_crypto=st.selectbox("Enter the Currency :", ('BTC', 'ETH','ADA','MANA','XRP','BAT','DOGE','ZIL','DENT','WIN','SHIB','BTTC'))
 
-user_crypto=st.selectbox("Enter the Currency :", ('BTC', 'ETH','ADA','MANA','XRP','BAT','DOGE','ZIL','DENT','WIN','SHIB','BTTC'))
 
-
-user_against=st.selectbox("Which Currecy Do you want to use for reference :", ('INR', 'USD','CAD','EUR','AUD'))
-    #user_against = st.text_input("Which Currecy Do you want to use for reference :")
-crypro_currency=user_crypto
-against_currency=user_against
+    user_against=st.selectbox("Which Currecy Do you want to use for reference :", ('INR', 'USD','CAD','EUR','AUD'))
+        #user_against = st.text_input("Which Currecy Do you want to use for reference :")
+    crypro_currency=user_crypto
+    against_currency=user_against
+    st.write('You selected:', crypro_currency,'Against',against_currency)
     
 
 start_date=dt.datetime(2016,1,1)
 end_date=dt.datetime.now()
-st.write('You selected:', crypro_currency,'Against',against_currency)
+
 
 
 if user_crypto:
@@ -166,12 +167,12 @@ if user_crypto:
          # ax.set_title('Two Trig Functions') ax.legend(['sin','cos']) ax.xaxis.set_label_text('Angle ΘΘ') ax.yaxis.set_label_text('Sine and Cosine')
             
           # plt.subplots()
-        ax.plot(actual_price,color='red',label='Actuatl Prices')
-        ax.plot(prediction_prices,color='green',label='Prediction Prices')
-        ax.set_title(f'{crypro_currency} Price Prediction')
-        ax.xaxis.set_label_text('Date')
-        ax.yaxis.set_label_text('Price')
-        ax.legend(loc='upper left')
+        #ax.plot(actual_price,color='red',label='Actuatl Prices')
+        #ax.plot(prediction_prices,color='green',label='Prediction Prices')
+        #ax.set_title(f'{crypro_currency} Price Prediction')
+        #ax.xaxis.set_label_text('Date')
+        #ax.yaxis.set_label_text('Price')
+        #ax.legend(loc='upper left')
         
         st.pyplot(fig)
         df1=pd.DataFrame({'Actual':actual_price,'Predicted':np.ravel(prediction_prices)})
