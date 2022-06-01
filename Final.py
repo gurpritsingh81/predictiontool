@@ -34,6 +34,7 @@ against_currency=user_against
 
 start_date=dt.datetime(2016,1,1)
 end_date=dt.datetime.now()
+st.write('You selected:', crypro_currency,'Against',against_currency)
 
 
 if user_crypto:
@@ -56,6 +57,8 @@ if user_crypto:
 
         print(data.head())
         st.dataframe(data.tail())
+        option = st.selectbox(
+            'This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like This is how the data looks like ')
 
         """# Scaling the data from 0 to 1 """
 
