@@ -24,15 +24,14 @@ from tensorflow.keras.layers import Dense,Dropout,LSTM
 from tensorflow.keras.models import Sequential
 
 """# Setting inicial"""
-with st.sidebar:
-    user_crypto=st.selectbox("Enter the Currency :", ('BTC', 'ETH','ADA','MANA','XRP','BAT','DOGE','ZIL','DENT','WIN','SHIB','BTTC'))
+user_crypto=st.selectbox("Enter the Currency :", ('BTC', 'ETH','ADA','MANA','XRP','BAT','DOGE','ZIL','DENT','WIN','SHIB','BTTC'))
 
 
-    user_against=st.selectbox("Which Currecy Do you want to use for reference :", ('INR', 'USD','CAD','EUR','AUD'))
+user_against=st.selectbox("Which Currecy Do you want to use for reference :", ('INR', 'USD','CAD','EUR','AUD'))
         #user_against = st.text_input("Which Currecy Do you want to use for reference :")
-    crypro_currency=user_crypto
-    against_currency=user_against
-    st.write('You selected:', crypro_currency,'Against',against_currency)
+crypro_currency=user_crypto
+against_currency=user_against
+st.write('You selected:', crypro_currency,'Against',against_currency)
     
 
 start_date=dt.datetime(2016,1,1)
