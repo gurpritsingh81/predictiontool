@@ -173,6 +173,11 @@ if user_crypto:
         
         st.pyplot(fig)
         
+       
+        crss_tab=pd.crosstab(actual_price,prediction_prices)
+        print(crss_tab)
+        fig3=ax.line(crss_tab)
+        st.write(fig3)
         
        
         
