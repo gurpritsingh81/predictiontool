@@ -23,8 +23,9 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.layers import Dense,Dropout,LSTM
 from tensorflow.keras.models import Sequential
 
-"""# Setting inicial"""
+
 with st.sidebar:
+    """# Setting inicial"""
     user_crypto=st.selectbox("Enter the Currency :", ('BTC', 'ETH','ADA','MANA','XRP','BAT','DOGE','ZIL','DENT','WIN','SHIB','BTTC'))
 
 
